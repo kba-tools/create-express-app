@@ -1,0 +1,32 @@
+{
+  "name": "@aka-demy/create-express-app",
+  "version": "0.0.0",
+  "description": "Boilerplate for an Express App.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aka-demy/create-express-app.git"
+  },
+  "keywords": [
+    "express",
+    "javascript",
+    "typescript",
+    "framework",
+    "cli",
+    "boilerplate"
+  ],
+  "author": "Mobin Mohanan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aka-demy/create-express-app/issues"
+  },
+  "homepage": "https://github.com/aka-demy/create-express-app#readme",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "inquirer": "^9.1.4",
+    "mkdirp": "^2.1.3"
+  },
+  "type": "module"
+}
