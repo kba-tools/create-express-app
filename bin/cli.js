@@ -9,7 +9,7 @@ let app;
 
 let pkg = {
     name: 'express-app',
-    version: '0.0.0',
+    version: '0.0.1',
     private: true,
     scripts: {
         dev: 'node --watch ./src/bin/server.js',
