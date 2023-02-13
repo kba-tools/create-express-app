@@ -2,10 +2,10 @@ import express, { json, NextFunction, Request, Response, urlencoded } from 'expr
 import createError from 'http-errors';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import { ExpressError } from './types';
+import { ExpressError } from './types/error';
 
-import indexRouter from './routes/index';
-import usersRouter from './routes/users';
+import indexRouter from './routes/index.js';
+import usersRouter from './routes/users.js';
 
 const app = express();
 

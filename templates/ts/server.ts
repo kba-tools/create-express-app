@@ -4,10 +4,10 @@
  * Module dependencies.
  */
 
-import app from '../app';
+import app from '../app.js';
 import chalk from 'chalk';
 import { createServer } from 'http';
-import { ExpressError } from 'src/types';
+import { ExpressError } from '../types/error';
 
 /**
  * Get port from environment and store in Express.
@@ -82,6 +82,6 @@ function onError(error: ExpressError) {
 
 function onListening() {
   let addr = server.address();
-  let bind = typeof addr === 'string' ? `pipe  ${addr}` : `port ${addr.port}`;
+  let bind = typeof addr === 'string' ? `pipe  ${addr}` : `port ${addr?.port}`;
   console.log(chalk.cyan(`Listening on ${bind}.`));
 }
