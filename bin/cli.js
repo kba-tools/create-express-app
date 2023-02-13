@@ -3,9 +3,15 @@
 import { writeFileSync, copyFileSync } from 'fs';
 import { execSync } from 'child_process';
 import { mkdirpSync } from 'mkdirp';
-import { rimrafSync } from 'rimraf'
+import { rimrafSync } from 'rimraf';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const TEMPLATE_DIR = join(__dirname, '..', 'templates');
 
 let app;
 
@@ -55,28 +61,27 @@ const runCommand = command => {
         console.log(chalk.red(`Failed to execute ${command}.`));
         process.exit(1);
     }
-    // return true;
 }
 
 const askName = async () => {
     const answers = await inquirer.prompt({
         name: 'app_name',
         type: 'input',
-        prefix: '📛',
-        message: chalk.green('Give a name for the app:'),
+        prefix: '◈ ',
+        message: chalk.green('Give a name for the app: '),
         default() {
             return 'express-app';
         },
     });
     app = createAppName(answers.app_name);
-    pkg.name = app
+    pkg.name = app;
 }
 
 const askLanguage = async () => {
     const answers = await inquirer.prompt({
         name: 'language',
         type: 'list',
-        prefix: '🎲',
+        prefix: '◈ ',
         message: chalk.green('Choose a language:'),
         choices: [
             ' JavaScript',
@@ -94,7 +99,7 @@ const askTemplate = async () => {
     const answers = await inquirer.prompt({
         name: 'template',
         type: 'list',
-        prefix: '🔖',
+        prefix: '◈ ',
         message: chalk.green('Choose a template engine:'),
         choices: [
             ' None',
@@ -103,18 +108,18 @@ const askTemplate = async () => {
         ],
     });
     if (answers.template === 'EJS') {
-        pkg.dependencies['ejs'] = '^3.1.8'
+        pkg.dependencies['ejs'] = '^3.1.8';
     } else if (answers.template === 'Handlebars') {
-        pkg.dependencies['hbs'] = '^4.2.0'
+        pkg.dependencies['hbs'] = '^4.2.0';
     }
     pkg.dependencies = sortObject(pkg.dependencies);
 }
 
 const createJS = () => {
-    copyFileSync('./templates/js/app.js', `./${app}/src/app.js`);
-    copyFileSync('./templates/js/server.js', `./${app}/src/bin/server.js`);
-    copyFileSync('./templates/js/index.js', `./${app}/src/routes/index.js`);
-    copyFileSync('./templates/js/users.js', `./${app}/src/routes/users.js`);
+    copyFileSync(`${TEMPLATE_DIR}/js/app.js`, `./${app}/src/app.js`);
+    copyFileSync(`${TEMPLATE_DIR}/js/server.js`, `./${app}/src/bin/server.js`);
+    copyFileSync(`${TEMPLATE_DIR}/js/index.js`, `./${app}/src/routes/index.js`);
+    copyFileSync(`${TEMPLATE_DIR}/js/users.js`, `./${app}/src/routes/users.js`);
 }
 
 const createTS = () => {
@@ -133,12 +138,12 @@ const createTS = () => {
     pkg.devDependencies = sortObject(pkg.devDependencies);
 
     mkdirpSync(`./${app}/src/types`);
-    copyFileSync('./templates/ts/tsconfig.json', `./${app}/tsconfig.json`);
-    copyFileSync('./templates/ts/app.ts', `./${app}/src/app.ts`);
-    copyFileSync('./templates/ts/server.ts', `./${app}/src/bin/server.ts`);
-    copyFileSync('./templates/ts/index.ts', `./${app}/src/routes/index.ts`);
-    copyFileSync('./templates/ts/users.ts', `./${app}/src/routes/users.ts`);
-    copyFileSync('./templates/ts/types/error.ts', `./${app}/src/types/error.ts`);
+    copyFileSync(`${TEMPLATE_DIR}/ts/tsconfig.json`, `./${app}/tsconfig.json`);
+    copyFileSync(`${TEMPLATE_DIR}/ts/app.ts`, `./${app}/src/app.ts`);
+    copyFileSync(`${TEMPLATE_DIR}/ts/server.ts`, `./${app}/src/bin/server.ts`);
+    copyFileSync(`${TEMPLATE_DIR}/ts/index.ts`, `./${app}/src/routes/index.ts`);
+    copyFileSync(`${TEMPLATE_DIR}/ts/users.ts`, `./${app}/src/routes/users.ts`);
+    copyFileSync(`${TEMPLATE_DIR}/ts/types/error.ts`, `./${app}/src/types/error.ts`);
 }
 
 await askName();
@@ -159,12 +164,12 @@ writeFileSync(`./${app}/package.json`, JSON.stringify(pkg, null, 2));
 const installDeps = `cd ${app} && npm install`;
 
 console.log();
-console.log(chalk.greenBright(`⚡ Installing dependencies for ${app}...`));
+console.log(chalk.magenta(`⚡ Installing dependencies for ${app}...`));
 runCommand(installDeps);
 
 console.log();
-console.log(chalk.greenBright('🥂 Congratulations! You are good to go.'));
-console.log(chalk.greenBright('🏹 Type in the following command to start:'));
+console.log('◈  ' + chalk.magenta('Congratulations! You are good to go.'));
+console.log('◈  ' + chalk.magenta('Type in the following command to start:'));
 console.log();
 console.log(chalk.cyan(`🎯 cd ${app} && npm run dev`));
 console.log();
