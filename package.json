@@ -1,6 +1,6 @@
 {
   "name": "@aka-demy/create-express-app",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Boilerplate for an Express App.",
   "bin": "./bin/cli.js",
   "scripts": {
