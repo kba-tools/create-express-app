@@ -4,17 +4,17 @@
  * Module dependencies.
  */
 
-import app from '../app.js';
-import chalk from 'chalk';
-import { createServer } from 'http';
-import { ExpressError } from '../types/error';
+import app from "../app.js";
+import chalk from "chalk";
+import { createServer } from "http";
+import { ExpressError } from "../types/error";
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '8080');
-app.set('port', port);
+const port = normalizePort(process.env.PORT || "8080");
+app.set("port", port);
 
 /**
  * Create HTTP server.
@@ -27,8 +27,8 @@ const server = createServer(app);
  */
 
 server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+server.on("error", onError);
+server.on("listening", onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -55,19 +55,19 @@ function normalizePort(val: string) {
  */
 
 function onError(error: ExpressError) {
-  if (error.syscall !== 'listen') {
+  if (error.syscall !== "listen") {
     throw error;
   }
 
-  let bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
+  let bind = typeof port === "string" ? `Pipe ${port}` : `Port ${port}`;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-    case 'EACCES':
+    case "EACCES":
       console.error(`${bind} requires elevated privileges.`);
       process.exit(1);
       break;
-    case 'EADDRINUSE':
+    case "EADDRINUSE":
       console.error(`${bind} is already in use.`);
       process.exit(1);
       break;
@@ -82,6 +82,6 @@ function onError(error: ExpressError) {
 
 function onListening() {
   let addr = server.address();
-  let bind = typeof addr === 'string' ? `pipe  ${addr}` : `port ${addr?.port}`;
+  let bind = typeof addr === "string" ? `pipe  ${addr}` : `port ${addr?.port}`;
   console.log(chalk.cyan(`Listening on ${bind}.`));
 }
