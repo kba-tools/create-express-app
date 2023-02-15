@@ -20,7 +20,7 @@ let pkg = {
   version: "0.0.1",
   private: true,
   scripts: {
-    dev: "node --watch ./src/bin/server.js",
+    dev: "nodemon ./src/bin/server.js",
     start: "node ./src/bin/server.js",
   },
   dependencies: {
@@ -180,6 +180,8 @@ const generateTemplate = (lang, temp) => {
       `${TEMPLATE_DIR}/ts/types/error.ts`,
       `./${app}/src/types/error.ts`
     );
+  } else {
+    pkg.devDependencies["nodemon"] = "^2.0.20";
   }
 
   if (temp === "hbs") {
