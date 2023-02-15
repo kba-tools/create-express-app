@@ -13,8 +13,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const TEMPLATE_DIR = join(__dirname, "..", "templates");
 
-let app;
-
 let pkg = {
   name: "express-app",
   version: "0.0.1",
@@ -27,7 +25,6 @@ let pkg = {
     chalk: "^5.2.0",
     "cookie-parser": "^1.4.6",
     express: "^4.18.2",
-    "http-errors": "^2.0.0",
     morgan: "^1.10.0",
   },
   devDependencies: {
@@ -72,8 +69,7 @@ const askName = async () => {
       return "express-app";
     },
   });
-  app = createAppName(answers.app_name);
-  pkg.name = app;
+  return createAppName(answers.app_name);
 };
 
 const askLanguage = async () => {
@@ -110,7 +106,7 @@ const askTemplate = async () => {
   }
 };
 
-const generateTemplate = (lang, temp) => {
+const generateTemplate = (app, lang, temp) => {
   rimrafSync(`./${app}`);
   mkdirpSync(`./${app}/src/bin`);
   mkdirpSync(`./${app}/src/routes`);
@@ -122,7 +118,9 @@ const generateTemplate = (lang, temp) => {
     `${TEMPLATE_DIR}/${lang}/users.${lang}`,
     `./${app}/src/routes/users.${lang}`
   );
+
   if (temp) {
+    pkg.dependencies["http-errors"] = "^2.0.0";
     mkdirpSync(`./${app}/src/views`);
     mkdirpSync(`./${app}/public/styles`);
     copyFileSync(
@@ -164,8 +162,10 @@ const generateTemplate = (lang, temp) => {
     pkg.scripts["dev"] = "tsx watch ./src/bin/server";
     pkg.scripts["start"] = "node ./dist/bin/server.js";
     pkg.scripts["build"] = "rimraf dist && npx tsc";
+    pkg.scripts["postbuild"] = `copyfiles -u 1 src/views/*.${temp} dist`;
     pkg.scripts["prestart"] = "npm run build";
-    pkg.dependencies["rimraf"] = "^4.1.2";
+    pkg.devDependencies["rimraf"] = "^4.1.2";
+    pkg.devDependencies["copyfiles"] = "^2.4.1";
     pkg.devDependencies["@types/cookie-parser"] = "^1.4.3";
     pkg.devDependencies["@types/express"] = "^4.17.17";
     pkg.devDependencies["@types/http-errors"] = "^2.0.1";
@@ -191,6 +191,7 @@ const generateTemplate = (lang, temp) => {
     );
   }
 
+  pkg.name = app;
   pkg.dependencies = sortObject(pkg.dependencies);
   pkg.devDependencies = sortObject(pkg.devDependencies);
 
@@ -198,11 +199,11 @@ const generateTemplate = (lang, temp) => {
   copyFileSync(`${TEMPLATE_DIR}/gitignore`, `./${app}/.gitignore`);
 };
 
-await askName();
+const app = await askName();
 const lang = await askLanguage();
 const temp = await askTemplate();
 
-generateTemplate(lang, temp);
+generateTemplate(app, lang, temp);
 
 const installDeps = `cd ${app} && npm install`;
 
