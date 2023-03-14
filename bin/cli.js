@@ -128,8 +128,8 @@ const generateTemplate = (app, lang, temp) => {
       `./${app}/public/styles/style.css`
     );
     copyFileSync(
-      `${TEMPLATE_DIR}/views/public/favicon.png`,
-      `./${app}/public/favicon.png`
+      `${TEMPLATE_DIR}/views/public/favicon.ico`,
+      `./${app}/public/favicon.ico`
     );
     copyFileSync(
       `${TEMPLATE_DIR}/${lang}/app.${temp}.${lang}`,
