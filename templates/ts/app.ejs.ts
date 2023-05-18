@@ -12,8 +12,8 @@ import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { ExpressError } from "./types/error";
 
-import indexRouter from "./routes/index.js";
-import usersRouter from "./routes/users.js";
+import indexRouter from "./routes/index";
+import usersRouter from "./routes/users";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
