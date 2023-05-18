@@ -28,8 +28,8 @@ let pkg = {
     morgan: "^1.10.0",
   },
   devDependencies: {
-    eslint: "^8.34.0",
-    prettier: "^2.8.4",
+    eslint: "^8.40.0",
+    prettier: "^2.8.8",
   },
   type: "module",
 };
@@ -96,7 +96,7 @@ const askTemplate = async () => {
     choices: [" None", " EJS", " Handlebars"],
   });
   if (answers.template === " EJS") {
-    pkg.dependencies["ejs"] = "^3.1.8";
+    pkg.dependencies["ejs"] = "^3.1.9";
     return "ejs";
   } else if (answers.template === " Handlebars") {
     pkg.dependencies["hbs"] = "^4.2.0";
@@ -164,15 +164,15 @@ const generateTemplate = (app, lang, temp) => {
     pkg.scripts["build"] = "rimraf dist && npx tsc";
     pkg.scripts["postbuild"] = `copyfiles -u 1 src/views/*.${temp} dist`;
     pkg.scripts["prestart"] = "npm run build";
-    pkg.devDependencies["rimraf"] = "^4.1.2";
+    pkg.devDependencies["rimraf"] = "^5.0.1";
     pkg.devDependencies["copyfiles"] = "^2.4.1";
     pkg.devDependencies["@types/cookie-parser"] = "^1.4.3";
     pkg.devDependencies["@types/express"] = "^4.17.17";
     pkg.devDependencies["@types/http-errors"] = "^2.0.1";
     pkg.devDependencies["@types/morgan"] = "^1.9.4";
-    pkg.devDependencies["@types/node"] = "^18.13.0";
-    pkg.devDependencies["tsx"] = "^3.12.3";
-    pkg.devDependencies["typescript"] = "^4.9.5";
+    pkg.devDependencies["@types/node"] = "^20.2.0";
+    pkg.devDependencies["tsx"] = "^3.12.7";
+    pkg.devDependencies["typescript"] = "^5.0.4";
 
     mkdirpSync(`./${app}/src/types`);
     copyFileSync(`${TEMPLATE_DIR}/ts/tsconfig.json`, `./${app}/tsconfig.json`);
@@ -181,7 +181,7 @@ const generateTemplate = (app, lang, temp) => {
       `./${app}/src/types/error.ts`
     );
   } else {
-    pkg.devDependencies["nodemon"] = "^2.0.20";
+    pkg.devDependencies["nodemon"] = "^2.0.22";
   }
 
   if (temp === "hbs") {
@@ -215,5 +215,5 @@ console.log();
 console.log("◈  " + chalk.magenta("Congratulations! You are good to go."));
 console.log("◈  " + chalk.magenta("Type in the following command to start:"));
 console.log();
-console.log(chalk.cyan(`🎯 cd ${app} && npm run dev`));
+console.log(chalk.cyan(`⚓ cd ${app} && npm run dev`));
 console.log();
