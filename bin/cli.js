@@ -22,13 +22,13 @@ let pkg = {
     start: "node ./src/bin/server.js",
   },
   dependencies: {
-    chalk: "^5.2.0",
+    chalk: "^5.3.0",
     "cookie-parser": "^1.4.6",
     express: "^4.18.2",
     morgan: "^1.10.0",
   },
   devDependencies: {
-    eslint: "^8.40.0",
+    eslint: "^8.44.0",
     prettier: "^2.8.8",
   },
   type: "module",
@@ -170,9 +170,9 @@ const generateTemplate = (app, lang, temp) => {
     pkg.devDependencies["@types/express"] = "^4.17.17";
     pkg.devDependencies["@types/http-errors"] = "^2.0.1";
     pkg.devDependencies["@types/morgan"] = "^1.9.4";
-    pkg.devDependencies["@types/node"] = "^20.2.0";
+    pkg.devDependencies["@types/node"] = "^20.3.3";
     pkg.devDependencies["tsx"] = "^3.12.7";
-    pkg.devDependencies["typescript"] = "^5.0.4";
+    pkg.devDependencies["typescript"] = "^5.1.6";
 
     mkdirpSync(`./${app}/src/types`);
     copyFileSync(`${TEMPLATE_DIR}/ts/tsconfig.json`, `./${app}/tsconfig.json`);
