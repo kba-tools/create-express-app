@@ -106,6 +106,18 @@ const askTemplate = async () => {
   }
 };
 
+const askManager = async () => {
+  const answers = await inquirer.prompt({
+    name: "manager",
+    type: "list",
+    prefix: "◈ ",
+    message: chalk.green("Choose a package manager:"),
+    choices: [" npm", " pnpm", " yarn"],
+  });
+
+  return answers.manager;
+};
+
 const generateTemplate = (app, lang, temp) => {
   rimrafSync(`./${app}`);
   mkdirpSync(`./${app}/src/bin`);
@@ -202,10 +214,11 @@ const generateTemplate = (app, lang, temp) => {
 const app = await askName();
 const lang = await askLanguage();
 const temp = await askTemplate();
+const pm = await askManager();
 
 generateTemplate(app, lang, temp);
 
-const installDeps = `cd ${app} && npm install`;
+const installDeps = `cd ${app} && ${pm.slice(1)} install`;
 
 console.log();
 console.log(chalk.magenta(`⚡ Installing dependencies for ${app}...`));
@@ -215,5 +228,9 @@ console.log();
 console.log("◈  " + chalk.magenta("Congratulations! You are good to go."));
 console.log("◈  " + chalk.magenta("Type in the following command to start:"));
 console.log();
-console.log(chalk.cyan(`⚓ cd ${app} && npm run dev`));
+console.log(
+  chalk.cyan(
+    `⚓ cd ${app} && ${pm.slice(1)} ${pm === " npm" ? "run dev" : "dev"}`
+  )
+);
 console.log();
