@@ -28,8 +28,8 @@ let pkg = {
     morgan: "^1.10.0",
   },
   devDependencies: {
-    eslint: "^8.44.0",
-    prettier: "^2.8.8",
+    eslint: "^8.48.0",
+    prettier: "^3.0.3",
   },
   type: "module",
 };
@@ -178,13 +178,13 @@ const generateTemplate = (app, lang, temp) => {
     pkg.scripts["prestart"] = "npm run build";
     pkg.devDependencies["rimraf"] = "^5.0.1";
     pkg.devDependencies["copyfiles"] = "^2.4.1";
-    pkg.devDependencies["@types/cookie-parser"] = "^1.4.3";
+    pkg.devDependencies["@types/cookie-parser"] = "^1.4.4";
     pkg.devDependencies["@types/express"] = "^4.17.17";
     pkg.devDependencies["@types/http-errors"] = "^2.0.1";
-    pkg.devDependencies["@types/morgan"] = "^1.9.4";
-    pkg.devDependencies["@types/node"] = "^20.3.3";
-    pkg.devDependencies["tsx"] = "^3.12.7";
-    pkg.devDependencies["typescript"] = "^5.1.6";
+    pkg.devDependencies["@types/morgan"] = "^1.9.5";
+    pkg.devDependencies["@types/node"] = "^20.4.0";
+    pkg.devDependencies["tsx"] = "^3.12.8";
+    pkg.devDependencies["typescript"] = "^5.2.2";
 
     mkdirpSync(`./${app}/src/types`);
     copyFileSync(`${TEMPLATE_DIR}/ts/tsconfig.json`, `./${app}/tsconfig.json`);
@@ -193,7 +193,7 @@ const generateTemplate = (app, lang, temp) => {
       `./${app}/src/types/error.ts`
     );
   } else {
-    pkg.devDependencies["nodemon"] = "^2.0.22";
+    pkg.devDependencies["nodemon"] = "^3.0.1";
   }
 
   if (temp === "hbs") {
