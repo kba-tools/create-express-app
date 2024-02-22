@@ -28,8 +28,8 @@ let pkg = {
     morgan: "^1.10.0",
   },
   devDependencies: {
-    eslint: "^8.48.0",
-    prettier: "^3.0.3",
+    eslint: "^8.56.0",
+    prettier: "^3.2.5",
   },
   type: "module",
 };
@@ -176,15 +176,15 @@ const generateTemplate = (app, lang, temp) => {
     pkg.scripts["build"] = "rimraf dist && npx tsc";
     pkg.scripts["postbuild"] = `copyfiles -u 1 src/views/*.${temp} dist`;
     pkg.scripts["prestart"] = "npm run build";
-    pkg.devDependencies["rimraf"] = "^5.0.1";
+    pkg.devDependencies["rimraf"] = "^5.0.5";
     pkg.devDependencies["copyfiles"] = "^2.4.1";
-    pkg.devDependencies["@types/cookie-parser"] = "^1.4.4";
-    pkg.devDependencies["@types/express"] = "^4.17.17";
-    pkg.devDependencies["@types/http-errors"] = "^2.0.1";
-    pkg.devDependencies["@types/morgan"] = "^1.9.5";
-    pkg.devDependencies["@types/node"] = "^20.4.0";
-    pkg.devDependencies["tsx"] = "^3.12.8";
-    pkg.devDependencies["typescript"] = "^5.2.2";
+    pkg.devDependencies["@types/cookie-parser"] = "^1.4.6";
+    pkg.devDependencies["@types/express"] = "^4.17.21";
+    pkg.devDependencies["@types/http-errors"] = "^2.0.4";
+    pkg.devDependencies["@types/morgan"] = "^1.9.9";
+    pkg.devDependencies["@types/node"] = "^20.11.19";
+    pkg.devDependencies["tsx"] = "^4.7.1";
+    pkg.devDependencies["typescript"] = "^5.3.3";
 
     mkdirpSync(`./${app}/src/types`);
     copyFileSync(`${TEMPLATE_DIR}/ts/tsconfig.json`, `./${app}/tsconfig.json`);
@@ -193,7 +193,7 @@ const generateTemplate = (app, lang, temp) => {
       `./${app}/src/types/error.ts`
     );
   } else {
-    pkg.devDependencies["nodemon"] = "^3.0.1";
+    pkg.devDependencies["nodemon"] = "^3.0.3";
   }
 
   if (temp === "hbs") {
