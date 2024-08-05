@@ -24,12 +24,12 @@ let pkg = {
   dependencies: {
     chalk: "^5.3.0",
     "cookie-parser": "^1.4.6",
-    express: "^4.19.0",
+    express: "^4.19.2",
     morgan: "^1.10.0",
   },
   devDependencies: {
-    eslint: "^8.57.0",
-    prettier: "^3.2.5",
+    eslint: "^9.8.0",
+    prettier: "^3.3.3",
   },
   type: "module",
 };
@@ -96,7 +96,7 @@ const askTemplate = async () => {
     choices: [" None", " EJS", " Handlebars"],
   });
   if (answers.template === " EJS") {
-    pkg.dependencies["ejs"] = "^3.1.9";
+    pkg.dependencies["ejs"] = "^3.1.10";
     return "ejs";
   } else if (answers.template === " Handlebars") {
     pkg.dependencies["hbs"] = "^4.2.0";
@@ -182,9 +182,9 @@ const generateTemplate = (app, lang, temp) => {
     pkg.devDependencies["@types/express"] = "^4.17.21";
     pkg.devDependencies["@types/http-errors"] = "^2.0.4";
     pkg.devDependencies["@types/morgan"] = "^1.9.9";
-    pkg.devDependencies["@types/node"] = "^20.11.30";
-    pkg.devDependencies["tsx"] = "^4.7.1";
-    pkg.devDependencies["typescript"] = "^5.4.3";
+    pkg.devDependencies["@types/node"] = "^22.1.0";
+    pkg.devDependencies["tsx"] = "^4.16.5";
+    pkg.devDependencies["typescript"] = "^5.5.4";
 
     mkdirpSync(`./${app}/src/types`);
     copyFileSync(`${TEMPLATE_DIR}/ts/tsconfig.json`, `./${app}/tsconfig.json`);
@@ -193,7 +193,7 @@ const generateTemplate = (app, lang, temp) => {
       `./${app}/src/types/error.ts`
     );
   } else {
-    pkg.devDependencies["nodemon"] = "^3.1.0";
+    pkg.devDependencies["nodemon"] = "^3.1.4";
   }
 
   if (temp === "hbs") {
