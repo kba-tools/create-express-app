@@ -13,7 +13,7 @@ Creates minimalist boilerplate for an Express App.
 ## 🔑 Quick Start
 
 ```shell
-npx @aka-demy/create-express-app
+npx @kba-tools/create-express-app
 ```
 
 ## 📜 License
