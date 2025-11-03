@@ -22,14 +22,14 @@ let pkg = {
     start: 'node ./src/bin/server.js',
   },
   dependencies: {
-    chalk: '^5.4.1',
+    chalk: '^5.6.2',
     'cookie-parser': '^1.4.7',
     express: '^5.1.0',
-    morgan: '^1.10.0',
+    morgan: '^1.10.1',
   },
   devDependencies: {
-    eslint: '^9.27.0',
-    prettier: '^3.5.3',
+    eslint: '^9.39.0',
+    prettier: '^3.6.2',
   },
   type: 'module',
 }
@@ -132,7 +132,6 @@ const generateTemplate = (app, lang, temp) => {
   )
 
   if (temp) {
-    pkg.dependencies['http-errors'] = '^2.0.0'
     mkdirpSync(`./${app}/src/views`)
     mkdirpSync(`./${app}/public/styles`)
     copyFileSync(
@@ -176,15 +175,14 @@ const generateTemplate = (app, lang, temp) => {
     pkg.scripts['build'] = 'rimraf dist && npx tsc'
     pkg.scripts['postbuild'] = `copyfiles -u 1 src/views/*.${temp} dist`
     pkg.scripts['prestart'] = 'npm run build'
-    pkg.devDependencies['rimraf'] = '^6.0.1'
+    pkg.devDependencies['rimraf'] = '^6.1.0'
     pkg.devDependencies['copyfiles'] = '^2.4.1'
-    pkg.devDependencies['@types/cookie-parser'] = '^1.4.8'
-    pkg.devDependencies['@types/express'] = '^5.0.2'
-    pkg.devDependencies['@types/http-errors'] = '^2.0.4'
-    pkg.devDependencies['@types/morgan'] = '^1.9.9'
-    pkg.devDependencies['@types/node'] = '^22.15.19'
-    pkg.devDependencies['tsx'] = '^4.19.4'
-    pkg.devDependencies['typescript'] = '^5.8.3'
+    pkg.devDependencies['@types/cookie-parser'] = '^1.4.10'
+    pkg.devDependencies['@types/express'] = '^5.0.5'
+    pkg.devDependencies['@types/morgan'] = '^1.9.10'
+    pkg.devDependencies['@types/node'] = '^24.10.0'
+    pkg.devDependencies['tsx'] = '^4.20.6'
+    pkg.devDependencies['typescript'] = '^5.9.3'
 
     mkdirpSync(`./${app}/src/types`)
     copyFileSync(`${TEMPLATE_DIR}/ts/tsconfig.json`, `./${app}/tsconfig.json`)
