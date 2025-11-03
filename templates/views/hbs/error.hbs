@@ -1,3 +1,22 @@
-<h1>{{message}}</h1>
-<h2>{{error.status}}</h2>
-<pre>{{error.stack}}</pre>
+<main class='container'>
+  <header>
+    <h1>Error {{error.status}}</h1>
+  </header>
+
+  <section class='content'>
+    <p><strong>{{message}}</strong></p>
+
+    {{#if error.stack}}
+      <details open>
+        <summary>Stack Trace</summary>
+        <pre>{{error.stack}}</pre>
+      </details>
+    {{/if}}
+  </section>
+
+  <footer>
+    <p>
+      <a href='/'>Return to Home</a>
+    </p>
+  </footer>
+</main>

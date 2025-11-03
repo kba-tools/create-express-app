@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,7 +10,33 @@
   </head>
 
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <main class="container">
+      <header>
+        <h1><%= title %></h1>
+      </header>
+
+      <section class="content">
+        <p>
+          Welcome to <strong><%= title %></strong>. Your Express app is running
+          successfully.
+        </p>
+        <p>
+          Edit this page at <code>views/index.ejs</code> and restart the server
+          to see your changes.
+        </p>
+      </section>
+
+      <footer>
+        <p>
+          Powered by
+          <a
+            href="https://expressjs.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Express</a
+          >
+        </p>
+      </footer>
+    </main>
   </body>
 </html>
