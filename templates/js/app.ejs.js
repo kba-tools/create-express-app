@@ -1,5 +1,4 @@
 import express, { json, urlencoded } from 'express'
-import createError from 'http-errors'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import { join, dirname } from 'path'
@@ -26,19 +25,22 @@ app.use(express.static(join(__dirname, '../public')))
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404))
+// Catch-all for unmatched routes (404)
+app.use((_req, _res, next) => {
+  const error = new Error('Page not found')
+  error.status = 404
+  next(error)
 })
 
-// error handler
-app.use(function (err, req, res) {
-  // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
+// Unified error handler
+app.use((err, req, res, _next) => {
+  const status = err.status || 500
+  const isDev = req.app.get('env') === 'development'
 
-  // render the error page
-  res.status(err.status || 500)
+  res.locals.message = err.message || 'Something went wrong'
+  res.locals.error = isDev ? err : {}
+
+  res.status(status)
   res.render('error')
 })
 
