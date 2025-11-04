@@ -1,41 +1,70 @@
 #!/bin/bash
 
-fetch_latest_version() {
-  local package_name="$1"
-  
-  if command -v pnpm &> /dev/null; then
-    package_manager="pnpm"
-  elif command -v npm &> /dev/null; then
-    package_manager="npm"
-  else
-    echo "Error: Couldn't identify package manager."
-    exit 1
-  fi
+set -euo pipefail
 
-  case "$package_manager" in
-    "pnpm")
-      latest_version=$(pnpm view "$package_name" version)
-      ;;
-    "npm")
-      latest_version=$(npm view "$package_name" version)
-      ;;
-    *)
-      echo "Error: Unknown package manager."
-      exit 1
-      ;;
-  esac
+readonly RED='\033[0;31m'
+readonly GREEN='\033[0;32m'
+readonly YELLOW='\033[1;33m'
+readonly NC='\033[0m' # No Color
 
-  echo "$package_name: $latest_version"
+detect_package_manager() {
+	if command -v pnpm &>/dev/null; then
+		echo "pnpm"
+	elif command -v npm &>/dev/null; then
+		echo "npm"
+	else
+		echo -e "${RED}Error: No package manager found (npm or pnpm required)${NC}" >&2
+		exit 1
+	fi
 }
 
-declare -a arr=("chalk" "cookie-parser" "copyfiles" "ejs" "eslint" "express" "hbs" "http-errors" "morgan" \ 
-"nodemon" "prettier" "rimraf" "@types/cookie-parser" "@types/express" "@types/http-errors" "@types/morgan" \
-"@types/node" "tsx" "typescript")
+fetch_latest_version() {
+	local package_name="$1"
+	local package_manager="$2"
 
-echo "Fetching the latest versions..."
+	local latest_version
+	if latest_version=$("$package_manager" view "$package_name" version 2>/dev/null); then
+		echo -e "${GREEN}✓${NC} $package_name: ${YELLOW}$latest_version${NC}"
+	else
+		echo -e "${RED}✗${NC} $package_name: Failed to fetch version" >&2
+	fi
+}
 
-for package_name in ${arr[@]}; do
-  fetch_latest_version "$package_name"
-done
+main() {
+	local packages=(
+		"chalk"
+		"cookie-parser"
+		"copyfiles"
+		"ejs"
+		"eslint"
+		"express"
+		"hbs"
+		"morgan"
+		"nodemon"
+		"prettier"
+		"rimraf"
+		"@types/cookie-parser"
+		"@types/express"
+		"@types/morgan"
+		"@types/node"
+		"tsx"
+		"typescript"
+	)
 
-echo "Done!"
+	echo "Detecting package manager..."
+	local package_manager
+	package_manager=$(detect_package_manager)
+	echo -e "Using: ${GREEN}$package_manager${NC}\n"
+
+	echo "Fetching latest versions for ${#packages[@]} packages..."
+	echo
+
+	for package_name in "${packages[@]}"; do
+		fetch_latest_version "$package_name" "$package_manager"
+	done
+
+	echo
+	echo -e "${GREEN}Done!${NC}"
+}
+
+main "$@"
