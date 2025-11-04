@@ -1,6 +1,6 @@
 {
   "name": "@kba-tools/create-express-app",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Boilerplate for an Express App.",
   "bin": "./bin/cli.js",
   "scripts": {
@@ -32,7 +32,7 @@
   },
   "type": "module",
   "files": [
-    "LICENSE.txt",
+    "LICENSE.md",
     "bin/",
     "templates/"
   ]
